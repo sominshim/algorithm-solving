@@ -1,19 +1,16 @@
 import sys
 
-# 5x15 arr 초기화
-arr = [['*'] * 15 for _ in range(5)]
+# 입력을 리스트로 바로 받기
+words = [sys.stdin.readline().strip() for _ in range(5)]
 
-max_len = 0
-for i in range(5):
-    word = list(sys.stdin.readline().strip())
-    length = len(word)
-    arr[i][:length] = word
-    max_len = max(length, max_len)
+# 가장 긴 단어의 길이 구하기
+max_len = max(len(word) for word in words)
 
-result = ''
+result = []
 for i in range(max_len):
     for j in range(5):
-        if arr[j][i] == '*':
-            continue
-        result += arr[j][i]
-print(result)
+        # 현재 읽으려는 인덱스(i)가 그 줄의 길이보다 작을 때만 추가
+        if i < len(words[j]):
+            result.append(words[j][i])
+
+print("".join(result))
